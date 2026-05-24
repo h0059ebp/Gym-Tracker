@@ -1,0 +1,32 @@
+.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.button {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.container {
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: left; /* centers the title */
+  position: relative;
+  width: 100%;
+}
+
+h1 {
+  position: absolute;      /* takes it out of flow so it centers truly */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+button {
+  margin-left: 16px;       /* small gap from edge */
+}
