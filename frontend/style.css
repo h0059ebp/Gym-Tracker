@@ -27,6 +27,12 @@ h1 {
   transform: translateX(-50%);
 }
 
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
 button {
-  margin-left: 16px;       /* small gap from edge */
+
+  margin-left: 0;       /* small gap from edge */
 }
