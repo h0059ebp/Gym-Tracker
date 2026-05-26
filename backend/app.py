@@ -1,5 +1,12 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import bcrypt
 import psycopg2
+
+
+app = Flask(__name__)
+CORS(app)
+
 
 try:
 
@@ -15,7 +22,12 @@ try:
 except psycopg2.Error as e:
     print(f'Connection faield: {e}')
 
-def register_user(username, plain_password):
+@app.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()
+    username = data['username']
+    plain_password = data['password']
+
     hashed_password = bcrypt.hashpw(plain_password.encode('uft-8'),bcrypt.gensalt())
 
     cursor.execute(
@@ -29,8 +41,12 @@ def register_user(username, plain_password):
     print(f'User {username} registered sucessfully')
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data['username']
+    plain_password = data['password']
 
-def login(username, plain_password):
     try:
         # 1. Fetch the stored hash from the DB
         cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
@@ -54,3 +70,6 @@ def login(username, plain_password):
     except psycopg2.DatabaseError:
         print("Something went wrong with the database!")
     
+
+if __name__ == '__main__':
+    app.run(debug=True)
